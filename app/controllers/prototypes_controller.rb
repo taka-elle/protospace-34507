@@ -30,9 +30,9 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    prototype = Prototype.find(params[:id])
-    if prototype.update(prototype_params)
-      redirect_to prototype_path(prototype.id)
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      redirect_to prototype_path(@prototype.id)
     else
       render :edit
     end
@@ -50,8 +50,8 @@ class PrototypesController < ApplicationController
   end
 
   def move_to_index
-    @user = User.find(params[:id])
-    unless current_user == @user
+    @prototype = Prototype.find(params[:id])
+    unless current_user.id == @prototype.user_id
       redirect_to root_path
     end
   end
